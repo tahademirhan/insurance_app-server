@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  jackson:
+    date-format: yyyy-MM-dd'T'hh:mm:ss
+    serialization:
+      write-dates-as-timestamps: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        hbm2ddl:
+          import_files: classpath:/database/import.sql
+        show_sql: true
+
+  datasource:
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
+    driver-class-name: org.postgresql.Driver
+    dbcp2:
+      test-while-idle: true
+      test-on-borrow: true
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
+
+logging:
+  level:
+    ROOT: INFO
+  file:
+    name: app.log
